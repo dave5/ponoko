@@ -232,6 +232,10 @@ module Ponoko
       @total_make_cost['materials'].to_f
     end
     
+    def hardware_cost
+      @total_make_cost['hardware'].to_f
+    end
+
     def total_cost
       @total_make_cost['total'].to_f
     end
@@ -347,6 +351,10 @@ module Ponoko
       @cost['materials'].to_f
     end
     
+    def hardware_cost
+      @cost['hardware'].to_f
+    end
+
     def shipping_cost
       @cost['shipping'].to_f
     end
