@@ -70,6 +70,10 @@ module Ponoko
       make_request { @client.post "orders/", params }
     end
 
+    def post_order_for_quote params
+      make_request { @client.post "orders/quote", params }
+    end    
+
     def get_products key = nil
       make_request { @client.get "products/#{key.to_query}" }
     end

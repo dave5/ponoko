@@ -339,6 +339,14 @@ module Ponoko
       with_handle_error { Ponoko::api.post_order self.to_params }
     end
     
+    def quote!
+      fail Ponoko::PonokoAPIError, "Order must have a Delivery Address" if delivery_address.nil?
+      fail Ponoko::PonokoAPIError, "Order must have Products" if products.empty?
+      fail Ponoko::PonokoAPIError, "Order must have a Shipping Option Code" if shipping_option_code.nil?
+      
+      with_handle_error { Ponoko::api.post_order self.to_params }
+    end
+
     def add_product product, quantity = 1
       @products << {'product' => product, 'quantity' => quantity.to_s}
     end
