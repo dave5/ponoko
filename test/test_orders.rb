@@ -168,7 +168,7 @@ class TestOrders < MiniTest::Unit::TestCase
     
     assert_equal 'order_key', order.key
     assert_equal 'order_ref', order.ref
-    assert_equal 56.78, order.make_cost
+    assert_equal 56.78, order.making_cost
     assert_equal 56.78, order.material_cost
     assert_equal 56.78, order.shipping_cost
     assert_equal 56.78, order.total_cost

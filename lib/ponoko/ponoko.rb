@@ -228,7 +228,7 @@ module Ponoko
       @total_make_cost['making'].to_f
     end
     
-    def materials_cost
+    def material_cost
       @total_make_cost['materials'].to_f
     end
     
@@ -351,7 +351,7 @@ module Ponoko
       @products << {'product' => product, 'quantity' => quantity.to_s}
     end
     
-    def make_cost
+    def making_cost
       @cost['making'].to_f
     end
     

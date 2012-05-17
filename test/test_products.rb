@@ -33,7 +33,7 @@ class TestProducts < MiniTest::Unit::TestCase
     assert_equal "8bf834a59b8f36091d86faa27c2dd4bb", product.key
     assert_equal "product_ref", product.ref
     assert_equal 16.02, product.making_cost
-    assert_equal 2.84, product.materials_cost
+    assert_equal 2.84, product.material_cost
     assert product.materials_available?
 
     assert_equal 1, product.designs.length
