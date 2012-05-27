@@ -115,6 +115,11 @@ pp shipping_options
 
 order.shipping_option_code = shipping_options.first['code'] 
 
+hr "Get quote"
+quote = order.quote!
+
+pp quote
+
 hr "Send the order"
 order.send!
 
