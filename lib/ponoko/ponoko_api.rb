@@ -70,7 +70,7 @@ module Ponoko
       make_request { @client.post "orders/", params }
     end
 
-    def post_order_for_quote params
+    def post_quote params
       make_request { @client.post "orders/quote", params }
     end    
 

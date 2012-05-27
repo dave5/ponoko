@@ -255,7 +255,7 @@ module Ponoko
     attr_writer   :make_cost
 
     def add_material material
-       @material = material
+      @material = material
     end
     
     def making_cost
@@ -331,15 +331,14 @@ module Ponoko
       super
     end
     
-    def send!
-      fail Ponoko::PonokoAPIError, "Order must have a Delivery Address" if delivery_address.nil?
-      fail Ponoko::PonokoAPIError, "Order must have Products" if products.empty?
-      fail Ponoko::PonokoAPIError, "Order must have a Shipping Option Code" if shipping_option_code.nil?
-      
-      with_handle_error { Ponoko::api.post_order self.to_params }
-    end
+    attr :quote
     
     def quote!
+      @quote = Quote.new(self).send!
+      # return the costs here    
+    end
+
+    def send!
       fail Ponoko::PonokoAPIError, "Order must have a Delivery Address" if delivery_address.nil?
       fail Ponoko::PonokoAPIError, "Order must have Products" if products.empty?
       fail Ponoko::PonokoAPIError, "Order must have a Shipping Option Code" if shipping_option_code.nil?
@@ -495,4 +494,49 @@ module Ponoko
     attr_accessor :error_code, :name
   end
   
+  class Quote < Base
+    attr        :order
+    attr_writer :cost
+    
+    def initialize order
+      @order = order
+    end
+
+    def send!
+      fail Ponoko::PonokoAPIError, "Order must have a Delivery Address" if @order.delivery_address.nil?
+      fail Ponoko::PonokoAPIError, "Order must have Products" if @order.products.empty?
+      fail Ponoko::PonokoAPIError, "Order must have a Shipping Option Code" if @order.shipping_option_code.nil?
+      
+      with_handle_error { Ponoko::api.post_quote self.to_params }
+    end
+
+    def to_params
+      @order.to_params
+    end
+
+    def making_cost
+      @cost['making'].to_f
+    end
+    
+    def material_cost
+      @cost['materials'].to_f
+    end
+    
+    def hardware_cost
+      @cost['hardware'].to_f
+    end
+
+    def shipping_cost
+      @cost['shipping'].to_f
+    end
+    
+    def total_cost
+      @cost['total'].to_f
+    end
+    
+    def currency
+      @cost['currency']
+    end
+  end
+
 end # module Ponoko  
