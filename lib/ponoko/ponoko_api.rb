@@ -41,6 +41,10 @@ module Ponoko
     def get_material_catalogue node_key
       make_request { @client.get "nodes/material-catalog/#{node_key.to_query}" }
     end
+
+    def get_products key = nil
+      make_request { @client.get "products/#{key.to_query}" }
+    end
     
     def get_orders key = nil
       make_request { @client.get "orders/#{key.to_query}" }

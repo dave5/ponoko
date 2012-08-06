@@ -159,6 +159,14 @@ module Ponoko
         with_handle_error { Ponoko::api.post_design self.key, design.to_params }
       end
     end
+
+    def remove_design! design
+      if key.nil?
+        designs.delete_if{|des| des.ref == design.ref}
+      else
+        with_handle_error { Ponoko::api.destroy_design self.key, design.key }
+      end
+    end
     
     # Adding supplementary objects to products always posts to the server
     def add_design_image! file, default = false
@@ -263,7 +271,7 @@ module Ponoko
     end
     
     def material_cost
-      @make_cost['material'].to_f
+      @make_cost['materials'].to_f
     end
     
     def total_cost
